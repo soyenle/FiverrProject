@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+        <title> Fiverr Tester </title>
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
@@ -43,6 +44,27 @@
                     class="clickable"
                     gesture-handler
                 ></a-entity>
+            </a-marker>
+       <!--- New Marker/Model --->              
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/pattern-A.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerA"
+            >
+                <a-entity
+                    id="bowser-model"
+                    scale="0.4 0.4 0.4"
+                    animation-mixer="loop: repeat"
+                    gltf-model="assets/dragon_flying/scene.gltf"
+                    class="clickable"
+                    gesture-handler               
+                ></a-entity>
+                              
             </a-marker>
 
             <a-entity camera></a-entity>
