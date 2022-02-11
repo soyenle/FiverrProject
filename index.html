@@ -1,16 +1,103 @@
 <!doctype html>
 <html>
     <head>
-        <title> 1Fiverr Tester </title>
+        <title> Marker-AR </title>
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     </head>
+    
+<style>
 
-    <body style="margin: 0; overflow: hidden;">
-        <a-scene
+    .content {
+        margin: auto;
+        width: 35%;
+        border: 3px solid green;
+        padding: 0.1%;
+        border-radius: 30px;
+        background: #73AD21;
+        text-align: center;
+        justify-content: center;
+	    z-index: 10;
+    }
+        
+</style>
+    
+<script>             
+    var ListeA = 'Da Vinci, Beethoven,  Picasso, Van Gogh, Mozart,  Göthe, Schiller, Dali, Michelangelo, Chopin';
+	var ListeB = 'Burger King, Apfel, Birne, Banane, Pommes,  Litschi, Avocado, Salz, Chicken Wings';
+	var ListeC = 'Hund, Katze, Ratte, Büffel, Drache, Schwein, Kaninchen, Schlange, Tiger, Affe';
+	var ListeD = 'Brasilien, Schwarzes Meer,  Kolumbien, Vietnam, Peru, Himalaya, Ghana, Schweiz, Mongolei, Machu Picchu';
+	var ListeE = 'Baktereophage, Photosynthese, Calcium, Zellkern, Mitochondrium, Nukleus, Virus, DNA, Zellteilung, Skelett, Hydrogen';
+	
+	//var visible = 0;
+		
+         AFRAME.registerComponent('markerhandler', {
+         tock:function() {
+		 
+        /*  if(visible == 0 && 
+	    (document.querySelectorAll('a-marker')[0].object3D.visible == true || 
+	     document.querySelectorAll('a-marker')[1].object3D.visible == true ||
+	     document.querySelectorAll('a-marker')[2].object3D.visible == true ||
+	     document.querySelectorAll('a-marker')[3].object3D.visible == true ||
+	     document.querySelectorAll('a-marker')[4].object3D.visible == true) ) {countdown(); } 
+	  */ 
+		 
+         if(document.querySelectorAll('a-marker')[0].object3D.visible == true) {document.getElementById("div").textContent = ListeA; } 
+	 if(document.querySelectorAll('a-marker')[1].object3D.visible == true) {document.getElementById("div").textContent = ListeB; } 
+	 if(document.querySelectorAll('a-marker')[2].object3D.visible == true) {document.getElementById("div").textContent = ListeC; } 
+	 if(document.querySelectorAll('a-marker')[3].object3D.visible == true) {document.getElementById("div").textContent = ListeD; } 
+	 if(document.querySelectorAll('a-marker')[4].object3D.visible == true) {document.getElementById("div").textContent = ListeE; } 
+	
+	 if(  (document.querySelectorAll('a-marker')[0].object3D.visible == false) && (document.querySelectorAll('a-marker')[1].object3D.visible == false)
+	   && (document.querySelectorAll('a-marker')[2].object3D.visible == false) && (document.querySelectorAll('a-marker')[3].object3D.visible == false) 
+	   && (document.querySelectorAll('a-marker')[4].object3D.visible == false)	) 
+	 {document.getElementById("div").textContent = ""; } 
+	 }	
+	 });
+            
+	/*
+	function Instructions() {           
+	window.alert("Lerne Alle Wörterlisten A-E für eine Minute und öffne anschließend den Abfrage Test");
+        }
+	function Quiz() {           
+   	window.open("https://forms.gle/sCLAGZSEfJ1sRg6f6");
+	}      
+        
+	function countdown() {
+	visible = 1;
+	var timeleft = 60;
+		
+	var timer = setInterval(function() {
+    	    	if (timeleft <= 0) {
+			clearInterval(timer);
+			visible = 0;
+    			}
+    		document.getElementById("counter").textContent = timeleft;
+    		timeleft -= 1;
+		}, 1000); }
+	*/
+	
+		
+		
+</script>
+    
+    
+    <body style="margin: auto; overflow: hidden;">
+	 
+	<div class="content" id = "div"></div>    
+       
+	    
+	<!--------- UI init Für Quiz/Instruction/Timer-----
+	<div class="button-quiz" type = "button" onclick = "Quiz()">Go To Test</div>    
+	<div class="button-instructions" type = "button" onclick = "Instructions()"> Instructions</div>
+	<div class="counter" id="counter">0</div>    
+   	 ------>
+        
+	    
+	    <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
             renderer="logarithmicDepthBuffer: true;"
@@ -18,34 +105,16 @@
             id="scene"
             embedded
             gesture-detector
+            markerhandler
         >
             <a-assets>
                 <a-asset-item
                     id="animated-asset"
                     src="assets/asset.gltf"
                 ></a-asset-item>
-            </a-assets>
-
-            <a-marker
-                id="animated-marker"
-                type="pattern"
-                preset="custom"
-                url="assets/marker.patt"
-                raycaster="objects: .clickable"
-                emitevents="true"
-                cursor="fuse: false; rayOrigin: mouse;"
-                id="markerA"
-            >
-                <a-entity
-                    id="bowser-model"
-                    scale="0.13793102541094646 0.13793102541094646 0.13793102541094646"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    class="clickable"
-                    gesture-handler
-                ></a-entity>
-            </a-marker>
-       <!--- New Marker/Model --->              
+            </a-assets> 
+  
+<!--------- This is a New Marker-Model Enitity--------->
             <a-marker
                 id="animated-marker"
                 type="pattern"
@@ -58,15 +127,99 @@
             >
                 <a-entity
                     id="bowser-model"
-                    scale="0.05 0.05 0.05"
+			  rotation="270 0 0"
+                    scale="0.4 0.4 0.4"
                     animation-mixer="loop: repeat"
-                    gltf-model="assets/dragon_flying/scene.gltf"
+                    gltf-model="assets/mona_lisa_painting/scene.gltf"
                     class="clickable"
-                    gesture-handler               
+                    gesture-handler
+                ></a-entity>  
+            </a-marker>               
+		
+<!--------- This is a New Marker-Model Enitity--------->
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/pattern-B.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="marker2"
+            >
+                <a-entity
+                    id="bowser-model2"
+                    scale="0.05 0.05 0.05"
+                    gltf-model="assets/fast_foods/scene.gltf"
+                    class="clickable"
+                    gesture-handler           
                 ></a-entity>
-                              
-            </a-marker>
-
+              </a-marker>   
+		
+<!--------- This is a New Marker-Model Enitity--------->
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/pattern-C.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="marker2"
+            >
+                <a-entity
+                    id="bowser-model2"
+                    scale="2 2 2"
+	    		rotation="270 0 0"
+                    gltf-model="assets/shiba/scene.gltf"
+                    class="clickable"
+                    gesture-handler           
+                ></a-entity>
+              </a-marker>  
+<!--------- This is a New Marker-Model Enitity--------->
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/pattern-D.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="marker2"
+            >
+                <a-entity
+                    id="bowser-model2"
+                    scale="0.01 0.01 0.01"
+		    position="0 0 0"
+                    gltf-model="assets/earth/scene.gltf"
+                    class="clickable"
+                    gesture-handler           
+                ></a-entity>
+              </a-marker>  
+		
+<!--------- This is a New Marker-Model Enitity--------->
+            <a-marker
+                id="animated-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/pattern-E.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="marker2"
+            >
+                <a-entity
+                    id="bowser-model2"
+                    scale="0.075 0.075 0.075"
+		    position="0 -2 0"
+		    rotation="270 0 0"
+                    gltf-model="assets/bacteriophage_with_dna/scene.gltf"
+                    class="clickable"
+                    gesture-handler           
+                ></a-entity>
+              </a-marker>  
+    
+				
             <a-entity camera></a-entity>
         </a-scene>
     </body>
